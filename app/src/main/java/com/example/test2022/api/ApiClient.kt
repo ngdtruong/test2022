@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
 
-    val retrofit: Retrofit? by lazy {
+    val retrofit: Retrofit by lazy {
         Retrofit.Builder().baseUrl(Constant.BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(CoroutineCallAdapterFactory())

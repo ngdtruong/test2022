@@ -1,22 +1,21 @@
 package com.example.test2022.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.test2022.model.MediaList
 import com.example.test2022.repository.MediaRepository
 import com.example.test2022.repository.MediaRepositoryImpl
 import kotlinx.coroutines.launch
 
-class MainViewModel(application: Application): AndroidViewModel(application) {
+class MainViewModel: ViewModel() {
     private var mediaRepository: MediaRepository? = null
     private var listMediaLiveData = MutableLiveData<List<MediaList>>()
     private var errorLiveData = MutableLiveData<String>()
 
     init {
-        mediaRepository = MediaRepositoryImpl.getInstance(application)
+        mediaRepository = MediaRepositoryImpl.instance
     }
 
     fun fetchData(){

@@ -11,7 +11,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -46,7 +45,7 @@ class MainActivity : AppCompatActivity() {
     private fun initControls() {
         checkPermission()
 
-        mediaListAdapter = MediaListAdapter(this, MediaDiffCallback())
+        mediaListAdapter = MediaListAdapter(MediaDiffCallback())
         binding!!.rv.apply {
             setHasFixedSize(true)
             addItemDecoration(
@@ -70,7 +69,7 @@ class MainActivity : AppCompatActivity() {
         for (i in list.indices) {
             if (list[i].type == "video/mp4") {
 
-                var downloadId = downloadVideo(list[i])
+                val downloadId = downloadVideo(list[i])
                 registerReceiver(object : BroadcastReceiver() {
                     override fun onReceive(context: Context?, intent: Intent?) {
                         val id = intent!!.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
@@ -85,7 +84,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun downloadVideo(mediaList: MediaList): Long? {
+    private fun downloadVideo(mediaList: MediaList): Long {
         try {
             val url = mediaList.url
             val request: DownloadManager.Request = DownloadManager.Request(Uri.parse(url))

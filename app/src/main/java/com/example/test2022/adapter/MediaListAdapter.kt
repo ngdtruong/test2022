@@ -13,20 +13,20 @@ import com.example.test2022.diffutil.MediaDiffCallback
 import com.example.test2022.model.MediaList
 
 
-class MediaListAdapter constructor(private val context: Context, @NonNull diffCallback: MediaDiffCallback) : ListAdapter<MediaList, MediaListAdapter.ViewHolder?>(diffCallback){
+class MediaListAdapter(@NonNull diffCallback: MediaDiffCallback) : ListAdapter<MediaList, MediaListAdapter.ViewHolder?>(diffCallback){
     private lateinit var binding: ItemRowBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         binding = ItemRowBinding.inflate(inflater, parent, false)
-        return ViewHolder(binding)
+        return ViewHolder(parent.context, binding)
     }
 
-    override fun onBindViewHolder(@NonNull holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
-    inner class ViewHolder(@NonNull private val binding: ItemRowBinding) :
+    inner class ViewHolder(private val context: Context, @NonNull private val binding: ItemRowBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(mediaList: MediaList) {
